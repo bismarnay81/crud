@@ -6,34 +6,45 @@ function trabajadores_list() {
         <h2>Trabajadores</h2>
         <div class="tablenav top">
             <div class="alignleft actions">
-                <a class="button"  href="<?php echo admin_url('admin.php?page=trabajadores-nuevo'); ?>">Agregar Nuevo Trabajador</a>
-               
+                <button type='button' class="btn-floating btn waves-effect waves-light red" onclick="location.href='<?php echo admin_url('admin.php?page=trabajadores-nuevo'); ?>';"><i class="material-icons">add</i></button>
             </div>
             <br class="clear">
         </div>
         <?php
             $args = array(
-                'post_type'        => 'pos_register',
-                'post_status'        => array ('pending', 'publish', 'private'),
-                'author' => '-1',
+                'post_type'        => 'pos_trabajadores',
+                
             );
             $rows = get_posts( $args );
         ?>
         <table class='wp-list-table widefat fixed striped posts'>
             <tr>
+                <th class="manage-column ss-list-width">Id</th>
                 <th class="manage-column ss-list-width">Tipo</th>
                 <th class="manage-column ss-list-width">Nombres</th>
+                <th class="manage-column ss-list-width">Apellidos</th>
                 <th class="manage-column ss-list-width">Carnet</th>
-               
+                <th class="manage-column ss-list-width">Foto</th>
             </tr>
-            <?php for($i=0; $i < count($rows); $i++){ $user = get_user_by( 'id', $rows[$i]->tipo_trabajador ); ?>
+            <?php for($i=0; $i < count($rows); $i++)
+               { 
+            ?>
                 <tr>
-                    <td class="manage-column ss-list-width"><?php echo $rows[$i]->tipo_trabajador; ?></td>
-                    <td class="manage-column ss-list-width"><?php echo $rows[$i]->nombres_trabajador; ?></td>
-                    <td class="manage-column ss-list-width"><?php echo $rows[$i]->carnet_trabajador; ?></td>
+                    <td class="manage-column ss-list-width"><?php echo $rows[$i]->ID; ?></td>
+                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_tipo_trabajador', true ); ?></td>
+                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_nombres', true ); ?></td>
+                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_apellidos', true ); ?></td>
+                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_telefono', true ); ?></td>
+                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_image', true ); ?></td>
                 </tr>
-            <?php } ?>
+            <?php 
+               }
+            ?>
         </table>
     </div>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <?php
 }

@@ -10,7 +10,7 @@
 add_action('admin_menu','lw_add_menu');
 function lw_add_menu() {
 	
-	//MENU TPV
+	//MENU DENUNCIA
 	add_menu_page('Central de riesgo', //page title
         'Central de riesgo', //menu title
         'manage_options', //capabilities
@@ -25,10 +25,37 @@ function lw_add_menu() {
 			'denuncias-nuevo', //menu slug
 			'denuncias_create' //function
 		);
+
+    //MENU TRABAJADORES
+	add_menu_page('Trabajadores', //page title
+            'Trabajadores', //menu title
+            'manage_options', //capabilities
+            'registro-trabajadores', //menu slug
+            'trabajadores_list', //function
+            'dashicons-align-full-width'
+    );
+    add_submenu_page('null', //parent slug
+        'Nuevo Trabajador', //page title
+        'Nuevo Trabajador', //menu title
+        'manage_options', //capability
+        'trabajadores-nuevo', //menu slug
+        'trabajadores_create' //function
+    );
+     //MENU AFILIADOS
+	add_menu_page('Afiliados', //page title
+    'Afiliados', //menu title
+    'manage_options', //capabilities
+    'registro-afiliados', //menu slug
+    'afiliados_list', //function
+    'dashicons-align-full-width'
+);    
 } 
 // Cargando files php -----------------------------------------------------
 define('ROOTDIR', plugin_dir_path(__FILE__));
 require_once(ROOTDIR . 'views/denuncias_list.php');
 require_once(ROOTDIR . 'views/denuncias_create.php');
+require_once(ROOTDIR . 'views/trabajadores_list.php');
+require_once(ROOTDIR . 'views/trabajadores_create.php');
+require_once(ROOTDIR . 'views/afiliados_list.php');
 
 

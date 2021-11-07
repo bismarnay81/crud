@@ -3,30 +3,26 @@
 function denuncias_create() {
     if (isset($_POST['insert'])) {
         $my_box = array(
-            'post_title'    => $_POST['post_title'],
-            'post_content'  => $_POST['post_content'],
-            'post_status'   => 'pending',
-            'post_type'   => 'pos_register',
+            'post_title'    => 'Nueva denuncia',
+            'post_status'   => 'publish',
+            'post_type'   => 'pos_denuncias',
             'meta_input' => array(
-                'lw_nota_apertura' => null,
-                'lw_nota_cierre' => null,
-                'lw_monto_inicial' => null,
-                'lw_monto_final' => null,
-                'outlet' => $_POST['outlet'] , //pos_outlet
-                'receipt' => $_POST['receipt'] , //pos_receipt
-                'customer' => $get_user->id, //user
-                'lw_or' => $_POST["option_restaurant"]  ? 'true' : 'false', // options restaurnt
+                'lw_denunciado' => $_POST['denunciado'] ,
+                'lw_denunciante' => $_POST['denunciante'] ,
+                'lw_detalle' => $_POST['detalle_denuncia'] , 
+                'lw_estado' => $_POST['estado_denuncia'] ,
             )
 
         );
         
         // Insert the post into the database
         $box_id = wp_insert_post( $my_box );
-        header('Location: ' . admin_url('admin.php?page=cajas'), true);
+        header('Location: ' . admin_url('admin.php?page=central-riesgo'), true);
         die();
     }
     ?>
     <link type="text/css" href="<?php echo WP_PLUGIN_URL; ?>/iby-master/css/style-admin.css" rel="stylesheet" />
+   
     <div class="wrap">
         <h2>Nueva Denuncia</h2>
         <?php if (isset($message)): ?><div class="updated"><p><?php echo $message; ?></p></div><?php endif; ?>
@@ -35,25 +31,63 @@ function denuncias_create() {
             <table class='wp-list-table widefat fixed'>
                
                
-                <tr>
-                    <th class="ss-th-width">Nombre del denunciado</th>
-                    <td><input type="text" name="nombre_denunciado" value="<?php echo $nombre_denunciado; ?>" class="ss-field-width" /></td>
-                </tr>
-                <tr>
-                    <th class="ss-th-width">Carnet</th>
-                    <td><input type="text" name="carnet_denunciado" value="<?php echo $carnet_denunciado; ?>" class="ss-field-width" /></td>
-                </tr>
-                <tr>
-                    <th class="ss-th-width">Descripcion</th>
-                    <td><Textarea name="post_content" class="ss-field-width"><?php echo $post_content; ?></Textarea></td>
-                </tr>
+            <div class="row">
+               <div class="input-field col s4">
+                 <h6>Denunciado</h6>
+                    <select name="denunciado" id="" class="browser-default">
+                       <option value="" disabled selected>Seleccione una opcion</option> 
+                       <?php $rows = get_posts( array('post_type' => 'pos_trabajadores','meta_key' => 'lw_tipo_trabajador','meta_value' => 'Trabajador') ); ?>
+                          <?php for ($i=0; $i < count($rows); $i++) { ?>
+                             <option value="<?php echo get_post_meta( $rows[$i]->ID, 'lw_nombres', true ); ?> <?php echo get_post_meta( $rows[$i]->ID, 'lw_apellidos', true ); ?>"><?php echo get_post_meta( $rows[$i]->ID, 'lw_nombres', true ); ?> <?php echo get_post_meta( $rows[$i]->ID, 'lw_apellidos', true ); ?></option>
+                       <?php } ?>
+                    </select>
+               </div>
+               <div class="input-field col s4">
+                 <h6>Denunciante</h6>
+                    <select name="denunciante" id="" class="browser-default">
+                       <option value="" disabled selected>Seleccione una opcion</option> 
+                       <?php $rows = get_posts( array('post_type' => 'pos_trabajadores','meta_key' => 'lw_tipo_trabajador','meta_value' => 'Afiliado') ); ?>
+                          <?php for ($i=0; $i < count($rows); $i++) { ?>
+                             <option value="<?php echo get_post_meta( $rows[$i]->ID, 'lw_nombres', true ); ?> <?php echo get_post_meta( $rows[$i]->ID, 'lw_apellidos', true ); ?>"><?php echo get_post_meta( $rows[$i]->ID, 'lw_nombres', true ); ?> <?php echo get_post_meta( $rows[$i]->ID, 'lw_apellidos', true ); ?></option>
+                       <?php } ?>
+                    </select>
+               </div>
+            </div>   
+             <div class="row">
+                <div class="input-field col s6">  
+                  <h6>Detalle de la denuncia</h6>
+                  <Textarea name="detalle_denuncia" class=""><?php echo $detalle_denuncia; ?></Textarea>
+                </div> 
+                <div class="input-field col s6"> 
+                  <h6>Estado de la denuncia</h6>
+                  <select id="estado_denuncia" name="estado_denuncia" class="browser-default" required>
+                    <option value="" disabled selected>Seleccione una opcion</option>
+                    <option value="Recepcionado">Recepcionado</option>
+                    <option value="Procesado">Procesado</option>
+                    <option value="Con dictamen">Con dictamen</option>
+                  </select>
+                </div>  
+             
+             </div>      
                 
 
             </table>
             <br>
-            <input type='submit' name="insert" value='Guardar' class='button'>
-            <a href="<?php echo admin_url('admin.php?page=central-riesgo'); ?>" class='button'> Volver</a>
+           
+            <div class="row">
+                <div class="input-field col s12">
+                   <button type='submit' name="insert" class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">save</i></button>
+                   <button type='button' class="btn-floating btn-large waves-effect waves-light blue" onclick="location.href='<?php echo admin_url('admin.php?page=central-riesgo'); ?>';"><i class="material-icons">reply</i></button>
+                   
+                 </div>
+            </div>
         </form>
     </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  
     <?php
 }

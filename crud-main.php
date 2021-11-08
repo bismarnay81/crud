@@ -27,12 +27,13 @@ function lw_add_menu() {
 		);
 
     //MENU TRABAJADORES
-	add_menu_page('Trabajadores', //page title
+	add_submenu_page('central-riesgo', //parent slug
+            'Nuevo Trabajador/afiliado', //page title
             'Trabajadores', //menu title
             'manage_options', //capabilities
             'registro-trabajadores', //menu slug
             'trabajadores_list', //function
-            'dashicons-align-full-width'
+            
     );
     add_submenu_page('null', //parent slug
         'Nuevo Trabajador', //page title

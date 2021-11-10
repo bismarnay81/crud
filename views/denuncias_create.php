@@ -10,7 +10,7 @@ function denuncias_create() {
                 'lw_denunciado' => $_POST['denunciado'] ,
                 'lw_denunciante' => $_POST['denunciante'] ,
                 'lw_detalle' => $_POST['detalle_denuncia'] , 
-                'lw_estado' => $_POST['estado_denuncia'] ,
+                'lw_estado' =>'Recepcionado',
             )
 
         );
@@ -66,15 +66,7 @@ function denuncias_create() {
                   <h6>Detalle de la denuncia</h6>
                   <Textarea name="detalle_denuncia" class=""><?php echo $detalle_denuncia; ?></Textarea>
                 </div> 
-                <div class="input-field col s6"> 
-                  <h6>Estado de la denuncia</h6>
-                  <select id="estado_denuncia" name="estado_denuncia" class="browser-default" required>
-                    <option value="" disabled selected>Seleccione una opcion</option>
-                    <option value="Recepcionado">Recepcionado</option>
-                    <option value="Procesado">Procesado</option>
-                    <option value="Con dictamen">Con dictamen</option>
-                  </select>
-                </div>  
+               
              
              </div>      
                 

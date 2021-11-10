@@ -2,24 +2,20 @@
 function denuncias_list() {
     ?>
     
-     <!--<link type="text/css" rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/crud-main/resources/css/materialize.min.css"  media="screen,projection"/>--> 
-    <link href="<?php echo WP_PLUGIN_URL; ?>/crud-main/resources/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud-main/resources/vendor/jquery-2.1.0.js"></script>
-    <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud-main/resources/dist/js/select2.full.js"></script>
-    <link href="<?php echo WP_PLUGIN_URL; ?>/crud-main/resources/dist/css/select2.min.css" type="text/css" rel="stylesheet" />
-    <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud-main/resources/dist/js/i18n/es.js"></script> 
+     <!--<link type="text/css" rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/materialize.min.css"  media="screen,projection"/>--> 
+    <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/vendor/jquery-2.1.0.js"></script>
+    <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/dist/js/select2.full.js"></script>
+    <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/dist/css/select2.min.css" type="text/css" rel="stylesheet" />
+    <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/dist/js/i18n/es.js"></script> 
     
     <div id="cuadro1" class="col-sm-12 col-md-12 col-lg-12 ocultar">
      <div class="row">
       <div class="col s12 m12 l12">
        <div class="card-panel">  
           <div class="col s12 m12 112">
-              <div class="row">
-                  <ul class="tabs">
-                      <li class="tab col s9"><a class="white-text red darken-1 waves-effect waves-light"><h6>DENUNCIAS</h6></a>
-                      </li>
-                   </ul>
-              </div>
+              <h6>DENUNCIAS</h6>
+               
           </div> 
         <div class="tablenav top">
             <div class="alignleft actions">
@@ -58,6 +54,7 @@ function denuncias_list() {
                 <th class="manage-column ss-list-width">Detalle</th>
                 <th class="manage-column ss-list-width">Fecha</th>
                 <th class="manage-column ss-list-width">Estado</th>
+                <th class="manage-column ss-list-width">Imprimir</th>
             </tr>
           </thead>  
           <tbody>
@@ -67,7 +64,8 @@ function denuncias_list() {
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_denunciado', true ); ?></td>
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_denunciante', true ); ?></td>
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_detalle', true ); ?></td>
-                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_detalle', true ); ?></td>
+                    <td class="manage-column ss-list-width"><?php echo $rows[$i]->post_date; ?></td>
+                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_estado', true ); ?></td>
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_estado', true ); ?></td>
                 </tr>
             <?php } ?> 
@@ -81,11 +79,11 @@ function denuncias_list() {
         <h2>cuadro2</h2>
         <button type='button' class="btn-floating btn-large waves-effect waves-light blue" onclick="volver()"><i class="material-icons">reply</i></button>
     </div>    
-        <link href="<?php echo WP_PLUGIN_URL; ?>/crud-main/resources/icon.css" rel="stylesheet">
-        <!--<script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud-main/resources/js/materialize.min.js"></script>-->
-        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud-main/resources/js/materialize.min.js"></script>
+        <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/icon.css" rel="stylesheet">
+        <!--<script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/materialize.min.js"></script>-->
+        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/materialize.min.js"></script>
         <!--scrollbar-->
-        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud-main/resources/js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
         <script>		
            
             jQuery(document).ready(function($){
@@ -110,7 +108,7 @@ function denuncias_list() {
                             if (e.key === 'Enter' || e.keyCode === 13) {
                                
                                 $.ajax({
-                                    url: "<?php echo WP_PLUGIN_URL; ?>/crud-main/controller/search.php",
+                                    url: "<?php echo WP_PLUGIN_URL; ?>/crud/controller/search.php",
                                     dataType: "json",
                                     data: { "get_denuncia": $("#buscar_denuncia2").val() },
                                     success: function (response) {
@@ -126,7 +124,7 @@ function denuncias_list() {
                                                var $dtdenuncias = $('#dtdenuncias');
                                               
                                                 $.each(response,function(index,respuesta){      
-                                                    $dtdenuncias.append('<tr><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><tr>');
+                                                    $dtdenuncias.append('<tr><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ ingreso2.comdpitot +'</td><td><button id="sel_imprimir" type="button" class="araver"><i class="mdi-content-add"></i></button></td><tr>');
                                                 });     
                                            
                                         }		
@@ -156,10 +154,14 @@ function denuncias_list() {
                 jQuery("#cuadro2").removeClass('slided').slideUp('fast');
                 jQuery("#cuadro1").removeClass('slided').slideDown('fast'); 
             }
+            function imprimir_denunciaboton(){  
+                window.open('<?php echo WP_PLUGIN_URL; ?>'+'/crud/views/imprimir_denuncia.php', '_blank', 'location=yes,height=600,width=400,scrollbars=yes,status=yes');
+               
+            }
             var listar_denunciados = function(){
                 
                     $.ajax({
-                              url: "<?php echo WP_PLUGIN_URL; ?>/crud-main/controller/buscar_denunciados.php",
+                              url: "<?php echo WP_PLUGIN_URL; ?>/crud/controller/buscar_denunciados.php",
                               type:'post',
                               dataType:'json'
                               //data: { "get_buscar": $("#buscar").val() },
@@ -176,7 +178,7 @@ function denuncias_list() {
             }
             var buscar_selecionado = function(recibido){
                         $.ajax({
-                                    url: "<?php echo WP_PLUGIN_URL; ?>/crud-main/controller/search.php",
+                                    url: "<?php echo WP_PLUGIN_URL; ?>/crud/controller/search.php",
                                     dataType: "json",
                                     data: { "get_denuncia": recibido },
                                     success: function (response) {
@@ -192,7 +194,7 @@ function denuncias_list() {
                                                var $dtdenuncias = $('#dtdenuncias');
                                               
                                                 $.each(response,function(index,respuesta){      
-                                                    $dtdenuncias.append('<tr><td>'+ respuesta.id +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciante +'</td><td>'+ respuesta.detalle +'</td><td>'+ respuesta.fecha +'</td><td>'+ respuesta.estado +'</td><tr>');
+                                                    $dtdenuncias.append('<tr><td>'+ respuesta.id +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciante +'</td><td>'+ respuesta.detalle +'</td><td>'+ respuesta.fecha +'</td><td>'+ respuesta.estado +'</td><td><button id="aranverAPROBAR" type="button" class="btn-floating btn waves-effect waves-light grey btn-clip-preview" onclick="imprimir_denunciaboton();"><i class="mdi-content-add"></i></button></td><tr>');
                                                 });     
                                            
                                         }		

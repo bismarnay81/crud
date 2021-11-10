@@ -29,8 +29,16 @@ function denuncias_create() {
         <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
             <!-- <p>Three capital letters for the ID</p> -->
             <table class='wp-list-table widefat fixed'>
-               
-               
+              
+            <div class="row">
+                <div class="input-field col s12">
+                   <button type='submit' name="insert" class="btn-floating btn waves-effect waves-light green"><i class="material-icons">save</i></button>
+                   <button type='button' class="btn-floating btn waves-effect waves-light red" onclick="location.href='<?php echo admin_url('admin.php?page=denuncias-nuevo'); ?>';"><i class="material-icons">add</i></button>
+                   <button type='button' class="btn-floating btn waves-effect waves-light blue" onclick="location.href='<?php echo admin_url('admin.php?page=central-riesgo'); ?>';"><i class="material-icons">reply</i></button>
+                   
+                 </div>
+            </div>  
+            <hr>
             <div class="row">
                <div class="input-field col s4">
                  <h6>Denunciado</h6>
@@ -74,13 +82,7 @@ function denuncias_create() {
             </table>
             <br>
            
-            <div class="row">
-                <div class="input-field col s12">
-                   <button type='submit' name="insert" class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons">save</i></button>
-                   <button type='button' class="btn-floating btn-large waves-effect waves-light blue" onclick="location.href='<?php echo admin_url('admin.php?page=central-riesgo'); ?>';"><i class="material-icons">reply</i></button>
-                   
-                 </div>
-            </div>
+           
         </form>
     </div>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">

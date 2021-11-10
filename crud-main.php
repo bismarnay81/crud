@@ -4,7 +4,7 @@
 * Plugin URI: https://loginweb.dev/crud/
 * Description: Plugins para wordpress
 * Version: 2.0
-* Author: Ing. yo
+* Author: Ing. Bismar Santos Nay Zabala
 * Author URI: https://loginweb.dev/profile
 **/
 add_action('admin_menu','lw_add_menu');
@@ -42,14 +42,7 @@ function lw_add_menu() {
         'trabajadores-nuevo', //menu slug
         'trabajadores_create' //function
     );
-     //MENU AFILIADOS
-	add_menu_page('Afiliados', //page title
-    'Afiliados', //menu title
-    'manage_options', //capabilities
-    'registro-afiliados', //menu slug
-    'afiliados_list', //function
-    'dashicons-align-full-width'
-);    
+   
 } 
 // Cargando files php -----------------------------------------------------
 define('ROOTDIR', plugin_dir_path(__FILE__));

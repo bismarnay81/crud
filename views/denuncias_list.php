@@ -66,7 +66,7 @@ function denuncias_list() {
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_detalle', true ); ?></td>
                     <td class="manage-column ss-list-width"><?php echo $rows[$i]->post_date; ?></td>
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_estado', true ); ?></td>
-                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_estado', true ); ?></td>
+                    <td class="manage-column ss-list-width"><button id="" type="button" class="btn-floating btn waves-effect waves-light teal btn-clip-preview" onclick="imprimir_denunciaboton();"><i class="mdi-action-print"></i></button></td>
                 </tr>
             <?php } ?> 
           </tbody>   
@@ -194,7 +194,7 @@ function denuncias_list() {
                                                var $dtdenuncias = $('#dtdenuncias');
                                               
                                                 $.each(response,function(index,respuesta){      
-                                                    $dtdenuncias.append('<tr><td>'+ respuesta.id +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciante +'</td><td>'+ respuesta.detalle +'</td><td>'+ respuesta.fecha +'</td><td>'+ respuesta.estado +'</td><td><button id="aranverAPROBAR" type="button" class="btn-floating btn waves-effect waves-light grey btn-clip-preview" onclick="imprimir_denunciaboton();"><i class="mdi-content-add"></i></button></td><tr>');
+                                                    $dtdenuncias.append('<tr><td>'+ respuesta.id +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciante +'</td><td>'+ respuesta.detalle +'</td><td>'+ respuesta.fecha +'</td><td>'+ respuesta.estado +'</td><td><button id="aranverAPROBAR" type="button" class="btn-floating btn waves-effect waves-light teal btn-clip-preview" onclick="imprimir_denunciaboton();"><i class="mdi-action-print"></i></button></td><tr>');
                                                 });     
                                            
                                         }		

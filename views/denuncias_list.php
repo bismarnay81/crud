@@ -51,9 +51,11 @@ function denuncias_list() {
                 <th class="manage-column ss-list-width">ID</th>
                 <th class="manage-column ss-list-width">Denunciado</th>
                 <th class="manage-column ss-list-width">Denunciante</th>
-                <th class="manage-column ss-list-width">Detalle</th>
+                
                 <th class="manage-column ss-list-width">Fecha</th>
                 <th class="manage-column ss-list-width">Estado</th>
+                <th class="manage-column ss-list-width">Ver</th>
+                <th class="manage-column ss-list-width">Eliminar</th>
                 <th class="manage-column ss-list-width">Imprimir</th>
             </tr>
           </thead>  
@@ -63,10 +65,12 @@ function denuncias_list() {
                     <td class="manage-column ss-list-width"><?php echo $rows[$i]->ID; ?></td>
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_denunciado', true ); ?></td>
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_denunciante', true ); ?></td>
-                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_detalle', true ); ?></td>
+                   
                     <td class="manage-column ss-list-width"><?php echo $rows[$i]->post_date; ?></td>
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_estado', true ); ?></td>
-                    <td class="manage-column ss-list-width"><button id="" type="button" class="btn-floating btn waves-effect waves-light teal btn-clip-preview" onclick="imprimir_denunciaboton();"><i class="mdi-action-print"></i></button></td>
+                    <td class="manage-column ss-list-width"><button id="" type="button" class="btn-floating btn waves-effect waves-light brown btn-clip-preview" onclick="verdenunciaBoton();"><i class="mdi-action-find-in-page"></i></button></td>
+                    <td class="manage-column ss-list-width"><button id="" type="button" class="btn-floating btn waves-effect waves-light black btn-clip-preview" onclick="eliminardenunciaBoton();"><i class="mdi-content-clear"></i></button></td>
+                    <td class="manage-column ss-list-width"><button id="" type="button" class="btn-floating btn waves-effect waves-light teal btn-clip-preview" onclick="imprimirdenunciaBoton();"><i class="mdi-action-print"></i></button></td>
                 </tr>
             <?php } ?> 
           </tbody>   
@@ -124,7 +128,7 @@ function denuncias_list() {
                                                var $dtdenuncias = $('#dtdenuncias');
                                               
                                                 $.each(response,function(index,respuesta){      
-                                                    $dtdenuncias.append('<tr><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ ingreso2.comdpitot +'</td><td><button id="sel_imprimir" type="button" class="araver"><i class="mdi-content-add"></i></button></td><tr>');
+                                                    $dtdenuncias.append('<tr><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ ingreso2.comdpitot +'</td><td><button id="ver_denuncia" type="button" class="denunciaver"><i class="mdi-content-add"></i></button></td><td><button id="eliminar_denuncia" type="button" class="denunciaeliminar"><i class="mdi-content-add"></i></button></td><td><button id="imprimir_denuncia" type="button" class="denunciaimprimir"><i class="mdi-content-add"></i></button></td><tr>');
                                                 });     
                                            
                                         }		
@@ -194,7 +198,8 @@ function denuncias_list() {
                                                var $dtdenuncias = $('#dtdenuncias');
                                               
                                                 $.each(response,function(index,respuesta){      
-                                                    $dtdenuncias.append('<tr><td>'+ respuesta.id +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciante +'</td><td>'+ respuesta.detalle +'</td><td>'+ respuesta.fecha +'</td><td>'+ respuesta.estado +'</td><td><button id="aranverAPROBAR" type="button" class="btn-floating btn waves-effect waves-light teal btn-clip-preview" onclick="imprimir_denunciaboton();"><i class="mdi-action-print"></i></button></td><tr>');
+                                                  //  $dtdenuncias.append('<tr><td>'+ respuesta.id +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciante +'</td><td>'+ respuesta.detalle +'</td><td>'+ respuesta.fecha +'</td><td>'+ respuesta.estado +'</td><td><button id="aranverAPROBAR" type="button" class="btn-floating btn waves-effect waves-light teal btn-clip-preview" onclick="imprimir_denunciaboton();"><i class="mdi-action-print"></i></button></td><tr>');
+                                                    $dtdenuncias.append('<tr><td>'+ respuesta.id +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciante +'</td><td>'+ respuesta.fecha +'</td><td>'+ respuesta.estado +'</td><td><button id="ver_denuncia" type="button" class="btn-floating btn waves-effect waves-light brown btn-clip-preview" onclick="verdenunciaBoton();"><i class="mdi-action-find-in-page"></i></button></td><td><button id="eliminar_denuncia" type="button" class="btn-floating btn waves-effect waves-light black btn-clip-preview" onclick="eliminardenunciaBoton();"><i class="mdi-content-clear"></i></button></td><td><button id="imprimir_denuncia" type="button" class="btn-floating btn waves-effect waves-light green btn-clip-preview" onclick="imprimirdenunciaBoton();"><i class="mdi-action-print"></i></button></td><tr>');
                                                 });     
                                            
                                         }		

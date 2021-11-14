@@ -146,14 +146,14 @@ function denuncias_create() {
                            <br>          
                     </div>
                     <div class="card-content">
-                      <ul class="collection">
-                        <li id='sel_nombres2'>Nombres:</li>
-                        <li id='sel_apellidos2'>Apellidos:</li>
-                        <li id='sel_tipo2'>Tipo documento:</li>
-                        <li id='sel_numero2'>Numero:</li>
-                        <li id='sel_telefono2'>Telefono:</li>
-                        <li id='sel_negocio2'>Negocio:</li>
-                      </ul>
+                     
+                        <h6 id='sel_nombres2'>Nombres:</h6>
+                        <h6 id='sel_apellidos2'>Apellidos:</h6>
+                        <h6 id='sel_tipo2'>Tipo documento:</h6>
+                        <h6 id='sel_numero2'>Numero:</h6>
+                        <h6 id='sel_telefono2'>Telefono:</h6>
+                        <h6 id='sel_negocio2'>Negocio:</h6>
+                     
                     </div>
                    
                   </div>

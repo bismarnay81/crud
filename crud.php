@@ -16,7 +16,7 @@ function lw_add_menu() {
         'manage_options', //capabilities
         'central-riesgo', //menu slug
         'denuncias_list', //function
-        'dashicons-align-full-width'
+        'dashicons-id-alt'
 	);
     add_submenu_page('null', //parent slug
 			'Nueva denuncia', //page title
@@ -29,7 +29,7 @@ function lw_add_menu() {
     //MENU TRABAJADORES
 	add_submenu_page('central-riesgo', //parent slug
             'Nuevo Trabajador/afiliado', //page title
-            'Trabajadores', //menu title
+            'Trabajadores/Afiliados', //menu title
             'manage_options', //capabilities
             'registro-trabajadores', //menu slug
             'trabajadores_list', //function

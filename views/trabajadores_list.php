@@ -34,7 +34,7 @@ function trabajadores_list() {
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_tipo_trabajador', true ); ?></td>
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_nombres', true ); ?></td>
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_apellidos', true ); ?></td>
-                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_telefono', true ); ?></td>
+                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_numero_documento', true ); ?></td>
                     <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_image', true ); ?></td>
                 </tr>
             <?php 

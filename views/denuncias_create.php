@@ -7,15 +7,12 @@ function denuncias_create() {
             'post_status'   => 'publish',
             'post_type'   => 'pos_denuncias',
             'meta_input' => array(
-                'lw_denunciado' => $_POST['denunciado'] ,
-                'lw_denunciante' => $_POST['denunciante'] ,
+                'lw_denunciado' => $_POST['nombre_denunciado'] ,
+                'lw_denunciante' => $_POST['nombre_denunciante'] ,
                 'lw_detalle' => $_POST['detalle_denuncia'] , 
                 'lw_estado' =>'Recepcionado',
                 'lw_image1' =>$_POST['lw_image1'],
-                'lw_image2' =>$_POST['lw_image2'],
-                'lw_image3' =>$_POST['lw_image3'],
-                'lw_image4' =>$_POST['lw_image4'],
-                'lw_image5' =>$_POST['lw_image5'],
+              
             )
 
         );
@@ -27,7 +24,7 @@ function denuncias_create() {
     }
     if (isset($_POST['insert_trabajador'])) {
        
-      $my_box = array(
+        $my_box2 = array(
           'post_title'    => 'Nuevo Trabajador',
           'post_status'   => 'publish',
           'post_type'   => 'pos_trabajadores',
@@ -39,19 +36,18 @@ function denuncias_create() {
               'lw_telefono' => $_POST['telefono_trabajador'] ,
               'lw_nombre_negocio' => $_POST['nombre_negocio'] ,
               'lw_tipo_documento' => $_POST['tipo_documento'] ,
-              
+              'lw_numero_documento' => $_POST['numero_documento'] ,
           )
       );
-     // wp_insert_post( $setting );
-      
-      // Insert the post into the database
-      $box_id = wp_insert_post( $my_box );
-      header('Location: ' . admin_url('admin.php?page=registro-trabajadores'), true);
+    
+      $box_id2 = wp_insert_post( $my_box2 );
+      header('Location: ' . admin_url('admin.php?page=central-riesgo'), true);
       die();
   }
     ?>
        
-        <link rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> 
+        <!--<link rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/font-awesome.min.css">-->
         <link rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/site.css">
         <link rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/richtext.min.css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -61,11 +57,11 @@ function denuncias_create() {
         <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/style.min.css" type="text/css" rel="stylesheet" media="screen,projection">
         <!-- Custome CSS-->    
         <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/custom/custom.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-        <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/dist/js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
 
         <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/estilos.css" type="text/css" rel="stylesheet" media="screen,projection">
-        <link rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/font-awesome.min.css">
-        <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/dist/js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <!--<link rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/font-awesome.min.css">--> 
+        <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
 
 
        
@@ -85,6 +81,8 @@ function denuncias_create() {
         </div>  
         <?php if (isset($message)): ?><div class="updated"><p><?php echo $message; ?></p></div><?php endif; ?>
         <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+            <input type="hidden" id="nombre_denunciado" name="nombre_denunciado" value="">
+            <input type="hidden" id="nombre_denunciante" name="nombre_denunciante" value="">
             <!-- <p>Three capital letters for the ID</p> -->
             <table class='wp-list-table widefat fixed'>
               
@@ -114,20 +112,19 @@ function denuncias_create() {
                             <option value="" disabled selected>Seleccione una opcion</option> 
                             <?php $rows = get_posts( array('post_type' => 'pos_trabajadores','meta_key' => 'lw_tipo_trabajador','meta_value' => 'Trabajador') ); ?>
                                 <?php for ($i=0; $i < count($rows); $i++) { ?>
-                                  <option value="<?php echo get_post_meta( $rows[$i]->ID, 'lw_nombres', true ); ?> <?php echo get_post_meta( $rows[$i]->ID, 'lw_apellidos', true ); ?>"><?php echo get_post_meta( $rows[$i]->ID, 'lw_nombres', true ); ?> <?php echo get_post_meta( $rows[$i]->ID, 'lw_apellidos', true ); ?></option>
+                                  <option value="<?php echo get_post_meta( $rows[$i]->ID, 'lw_numero_documento', true ); ?>"><?php echo get_post_meta( $rows[$i]->ID, 'lw_nombres', true ); ?> <?php echo get_post_meta( $rows[$i]->ID, 'lw_apellidos', true ); ?></option>
                             <?php } ?>
                           </select>
                         </div> 
                         <br>          
                     </div>
                     <div class="card-content">
-                      <ul class="collection">
-                        <li>Nombres:</li>
-                        <li>Apellidos:</li>
-                        <li>Tipo documento:</li>
-                        <li>Numero:</li>
-                        <li>Telefono:</li>
-                      </ul>
+                     
+                        <h6 id='sel_nombres'>Nombres:</h6>
+                        <h6 id='sel_apellidos'>Apellidos:</h6>
+                        <h6 id='sel_tipo'>Tipo doc.:</h6>
+                        <h6 id='sel_numero'>Numero doc.:</h6>
+                        <h6 id='sel_telefono'>Telefono:</h6> 
                     </div>
                    
                   </div>
@@ -141,7 +138,7 @@ function denuncias_create() {
                                 <option value="" disabled selected>Seleccione una opcion</option> 
                                 <?php $rows = get_posts( array('post_type' => 'pos_trabajadores','meta_key' => 'lw_tipo_trabajador','meta_value' => 'Afiliado') ); ?>
                                     <?php for ($i=0; $i < count($rows); $i++) { ?>
-                                      <option value="<?php echo get_post_meta( $rows[$i]->ID, 'lw_nombres', true ); ?> <?php echo get_post_meta( $rows[$i]->ID, 'lw_apellidos', true ); ?>"><?php echo get_post_meta( $rows[$i]->ID, 'lw_nombres', true ); ?> <?php echo get_post_meta( $rows[$i]->ID, 'lw_apellidos', true ); ?></option>
+                                      <option value="<?php echo get_post_meta( $rows[$i]->ID, 'lw_numero_documento', true ); ?>"><?php echo get_post_meta( $rows[$i]->ID, 'lw_nombres', true ); ?> <?php echo get_post_meta( $rows[$i]->ID, 'lw_apellidos', true ); ?></option>
                                 <?php } ?>
                               </select> 
                              
@@ -150,12 +147,12 @@ function denuncias_create() {
                     </div>
                     <div class="card-content">
                       <ul class="collection">
-                        <li>Nombres:</li>
-                        <li>Apellidos:</li>
-                        <li>Tipo documento:</li>
-                        <li>Numero:</li>
-                        <li>Telefono:</li>
-                        <li>Negocio:</li>
+                        <li id='sel_nombres2'>Nombres:</li>
+                        <li id='sel_apellidos2'>Apellidos:</li>
+                        <li id='sel_tipo2'>Tipo documento:</li>
+                        <li id='sel_numero2'>Numero:</li>
+                        <li id='sel_telefono2'>Telefono:</li>
+                        <li id='sel_negocio2'>Negocio:</li>
                       </ul>
                     </div>
                    
@@ -168,7 +165,7 @@ function denuncias_create() {
            </div>  
          </div>
              <div class="row">
-                <div class="input-field col s6">  
+                <div class="input-field col s12">  
                   <h6>Detalle de la denuncia</h6>
                   <Textarea name="detalle_denuncia" class="content"><?php echo $detalle_denuncia; ?></Textarea>
                 </div> 
@@ -178,42 +175,20 @@ function denuncias_create() {
                 
                  
                      
-                    <div class="file-field input-field col s12">
-                        <h6>Imagen o video relacionado a la denuncia (1)</h6>
+                    <div class="file-field input-field col s4">
+                        <h6>Imagen o video relacionado a la denuncia</h6>
                           <input class="form-control" type="text" name="lw_image1" value="<?php echo get_post_meta($setting[0]->ID, 'lw_image1', true); ?>" />
                           <a href="#" onclick="open_modal_galery()" class='button'> Galeria</a>
-                        
-                        </h6>
                     </div>
-                    <div class="file-field input-field col s12">
-                        <h6>Imagen o video relacionado a la denuncia (2)</h6>
-                          <input class="form-control" type="text" name="lw_image2" value="<?php echo get_post_meta($setting[0]->ID, 'lw_image2', true); ?>" />
-                          <a href="#" onclick="open_modal_galery()" class='button'> Galeria</a>
-                        
-                        </h6>
+                    <div class="file-field input-field col s2">
+                       <h6>Cantidad de archivos de multimedia</h6>
+                       <input class='' type='number' name='cantidad_multimedia' value='' />
                     </div>
-                    <div class="file-field input-field col s12">
-                        <h6>Imagen o video relacionado a la denuncia (3)</h6>
-                          <input class="form-control" type="text" name="lw_image3" value="<?php echo get_post_meta($setting[0]->ID, 'lw_image3', true); ?>" />
-                          <a href="#" onclick="open_modal_galery()" class='button'> Galeria</a>
-                        
-                        </h6>
+                    <div class="file-field input-field col s6">
+                       <h6>Ver galeria multimedia</h6>
+                       <button type='button' class="btn-floating btn waves-effect waves-light cyan" onclick=""><i class="material-icons">reply</i></button>
+                 
                     </div>
-                    <div class="file-field input-field col s12">
-                        <h6>Imagen o video relacionado a la denuncia (4)</h6>
-                          <input class="form-control" type="text" name="lw_image4" value="<?php echo get_post_meta($setting[0]->ID, 'lw_image4', true); ?>" />
-                          <a href="#" onclick="open_modal_galery()" class='button'> Galeria</a>
-                        
-                        </h6>
-                    </div>
-                    <div class="file-field input-field col s12">
-                        <h6>Imagen o video relacionado a la denuncia (5)</h6>
-                          <input class="form-control" type="text" name="lw_image5" value="<?php echo get_post_meta($setting[0]->ID, 'lw_image5', true); ?>" />
-                          <a href="#" onclick="open_modal_galery()" class='button'> Galeria</a>
-                        
-                        </h6>
-                    </div>
-             
              </div>        
            
             </table>
@@ -231,14 +206,15 @@ function denuncias_create() {
     <div class="card-panel"> 
         <div class="wrap">
         <h2>Nuevo Afiliado o Trabajador</h2>
-        <div class="row">
-                <div class="input-field col s12">
-                   <button type='submit' name="insert_trabajador" class="btn-floating btn waves-effect waves-light green"><i class="material-icons">save</i></button>
-                   <button type='button' class="btn-floating btn waves-effect waves-light blue" onclick="volver()"><i class="material-icons">reply</i></button>                 
-                 </div>
-        </div>
+        
         <hr>
         <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+            <div class="row">
+                    <div class="input-field col s12">
+                      <button type='submit' name="insert_trabajador" class="btn-floating btn waves-effect waves-light green"><i class="material-icons">save</i></button>
+                      <button type='button' class="btn-floating btn waves-effect waves-light blue" onclick="volver()"><i class="material-icons">reply</i></button>                 
+                    </div>
+            </div>
             <!-- <p>Three capital letters for the ID</p> -->
             <table class='wp-list-table widefat fixed'>
             
@@ -254,21 +230,21 @@ function denuncias_create() {
               
                <div class="input-field col s4">
                  <h6>Nombres</h6>
-                 <input type="text" name="nombres_trabajador" value="<?php echo $nombres_trabajador; ?>" class="ss-field-width" onkeyup="mayusculas(this);" required/>
+                 <input type="text" name="nombres_trabajador" value="<?php echo $nombres_trabajador; ?>" class="ss-field-width" onkeyup="mayusculas(this);" />
                </div>  
                <div class="input-field col s4">
                  <h6>Apellidos</h6>
-                 <input type="text" name="apellidos_trabajador" value="<?php echo $apellidos_trabajador; ?>" class="ss-field-width" onkeyup="mayusculas(this);" required/>
+                 <input type="text" name="apellidos_trabajador" value="<?php echo $apellidos_trabajador; ?>" class="ss-field-width" onkeyup="mayusculas(this);" />
                </div>    
              </div>   
              <div class="row">
                <div class="input-field col s6">  
                  <h6>Telefono</h6>
-                 <input type="number" name="telefono_trabajador" value="<?php echo $telefono_trabajador; ?>" class="ss-field-width" required/>
+                 <input type="number" name="telefono_trabajador" value="<?php echo $telefono_trabajador; ?>" class="ss-field-width" />
                </div>
                <div class="input-field col s6">  
                  <h6>Nombre del negocio</h6>
-                 <input type="text" name="nombre_negocio" value="<?php echo $nombre_negocio; ?>" class="ss-field-width" required/>
+                 <input type="text" name="nombre_negocio" value="<?php echo $nombre_negocio; ?>" class="ss-field-width" />
                </div>  
              
              </div> 
@@ -276,7 +252,7 @@ function denuncias_create() {
                
                <div class="input-field col s6"> 
                  <h6>Tipo de Documento de Identidad</h6>
-                 <select id="tipo_documento" name="tipo_documento" class="browser-default" required>
+                 <select id="tipo_documento" name="tipo_documento" class="browser-default" >
                     <option value="" disabled selected>Seleccione un tipo</option>
                     <option value="Carnet">Carnet</option>
                     <option value="Libreta de servicio militar">Libreta de servicio militar</option>
@@ -285,13 +261,13 @@ function denuncias_create() {
                </div>  
                <div class="input-field col s6">  
                  <h6>Numero de Documento de Identidad</h6>
-                 <input type="text" name="numero_documento" value="<?php echo $numero_documento; ?>" class="ss-field-width" required/>
+                 <input type="text" name="numero_documento" value="<?php echo $numero_documento; ?>" class="ss-field-width" />
                </div> 
              </div>   
               <div class="row">
                <div class="file-field input-field col s4">
                   <h6>Image o Logo</h6>
-                    <input class="form-control" type="text" name="lw_image" value="<?php echo get_post_meta($setting[0]->ID, 'lw_image', true); ?>" required/>
+                    <input class="form-control" type="text" name="lw_image" value="<?php echo get_post_meta($setting[0]->ID, 'lw_image', true); ?>" />
                     <a href="#" onclick="open_modal_galery()" class='button'> Galeria</a>
                    
                   </h6>
@@ -342,8 +318,71 @@ function denuncias_create() {
                $("#cuadro1").slideDown("slow");
                $(".js-example-basic-single").select2();
                $(".content").richText();
-                  
-                
+
+              $('#denunciado').change(function(){
+
+                var nombre_combo=$('#denunciado option:selected').text(); 
+                $("#nombre_denunciado").val( nombre_combo );
+                             $.ajax({
+                                    url: "<?php echo WP_PLUGIN_URL; ?>/crud/controller/mostrar_seleccion_denunciado.php",
+                                    dataType: "json",
+                                    data: { "cod_denunciado": $(this).val() },
+                                    success: function (response) {
+                                        console.log(response);
+                                        
+                                        if (response.length == 0) {
+                                           
+                                             alert("sin resultados");
+                                        } else {
+                                               // for(var i=0; i< response.length; i++){
+                                               // }	
+
+                                               //var $dtdenuncias = $('#dtdenuncias');
+                                              
+                                                $.each(response,function(index,respuesta){      
+                                                    //$dtdenuncias.append('<tr><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ ingreso2.comdpitot +'</td><td><button id="ver_denuncia" type="button" class="denunciaver"><i class="mdi-content-add"></i></button></td><td><button id="eliminar_denuncia" type="button" class="denunciaeliminar"><i class="mdi-content-add"></i></button></td><td><button id="imprimir_denuncia" type="button" class="denunciaimprimir"><i class="mdi-content-add"></i></button></td><tr>');
+                                                    document.getElementById('sel_nombres').innerHTML='Nombres: '+ respuesta.nombres;
+                                                    document.getElementById('sel_apellidos').innerHTML='Apellidos: '+ respuesta.apellidos;
+                                                    document.getElementById('sel_tipo').innerHTML='Tipo doc.: '+ respuesta.tipo_documento;
+                                                    document.getElementById('sel_numero').innerHTML='Numero doc.: '+ respuesta.numero_documento;
+                                                    document.getElementById('sel_telefono').innerHTML='Telefono: '+ respuesta.telefono;
+                                                });     
+                                           
+                                        }		
+                                    }
+                              });
+              });    
+            $('#denunciante').change(function(){
+
+             var nombre_combo=$('#denunciante option:selected').text(); 
+             $("#nombre_denunciante").val( nombre_combo );
+
+             $.ajax({
+                    url: "<?php echo WP_PLUGIN_URL; ?>/crud/controller/mostrar_seleccion_denunciante.php",
+                    dataType: "json",
+                    data: { "cod_denunciante": $(this).val() },
+                    success: function (response) {
+                        console.log(response);
+                        
+                        if (response.length == 0) {
+                           
+                             alert("sin resultados");
+                        } else {
+                             
+                                $.each(response,function(index,respuesta){      
+                                    //$dtdenuncias.append('<tr><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ ingreso2.comdpitot +'</td><td><button id="ver_denuncia" type="button" class="denunciaver"><i class="mdi-content-add"></i></button></td><td><button id="eliminar_denuncia" type="button" class="denunciaeliminar"><i class="mdi-content-add"></i></button></td><td><button id="imprimir_denuncia" type="button" class="denunciaimprimir"><i class="mdi-content-add"></i></button></td><tr>');
+                                    document.getElementById('sel_nombres2').innerHTML='Nombres: '+ respuesta.nombres;
+                                    document.getElementById('sel_apellidos2').innerHTML='Apellidos: '+ respuesta.apellidos;
+                                    document.getElementById('sel_tipo2').innerHTML='Tipo doc.: '+ respuesta.tipo_documento;
+                                    document.getElementById('sel_numero2').innerHTML='Numero doc.: '+ respuesta.numero_documento;
+                                    document.getElementById('sel_telefono2').innerHTML='Telefono: '+ respuesta.telefono;
+                                    document.getElementById('sel_negocio2').innerHTML='Negocio: '+ respuesta.negocio;
+                                });     
+                           
+                        }		
+                    }
+              });
+});     
 
                  
             }); 

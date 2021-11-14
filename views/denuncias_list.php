@@ -174,7 +174,7 @@ function denuncias_list() {
                             $select.empty();
                             $select.html('<option selected disabled>Seleccione una opcion</option>');
                             $.each(denunciados,function(index,denunciado){                             
-                                $select.append('<option value="'+ denunciado.id +'">'+ denunciado.nombres+' '+ denunciado.apellidos + '-'+ denunciado.documento +'</option>');
+                                $select.append('<option value="'+ denunciado.numero_documento +'">'+ denunciado.nombres+' '+ denunciado.apellidos + '-'+ denunciado.documento + ':'+ denunciado.numero_documento +'</option>');
                             });
                             $select.material_select();
                        });

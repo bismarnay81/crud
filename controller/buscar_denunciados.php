@@ -25,6 +25,7 @@
                     "nombres" => get_post_meta( $loop[$i]->ID, 'lw_nombres', true ),
                     "apellidos" => get_post_meta( $loop[$i]->ID, 'lw_apellidos', true ), //description
                     "documento" => get_post_meta( $loop[$i]->ID, 'lw_tipo_documento', true),
+                    "numero_documento" => get_post_meta( $loop[$i]->ID, 'lw_numero_documento', true),
                    // "carnet" => get_post_meta( $loop[$i]->ID, 'lw_estado', true ),
                     
                    

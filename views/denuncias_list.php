@@ -1,10 +1,21 @@
 <?php
 function denuncias_list() {
     ?>
-    
-     <!--<link type="text/css" rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/materialize.min.css"  media="screen,projection"/>--> 
+      <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/jquery-1.11.2.min.js"></script>   
     <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/vendor/jquery-2.1.0.js"></script>
+
+    <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/style.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <!-- Custome CSS-->    
+    <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/custom/custom.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/prism/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/sweetalert/sweetalert.css" type="text/css" rel="stylesheet" media="screen,projection">
+   
+    <!--<link rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/font-awesome.min.css">--> 
+    <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/magnific-popup/magnific-popup.css" type="text/css" rel="stylesheet" media="screen,projection">  
+
+    
     <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/dist/js/select2.full.js"></script>
     <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/dist/css/select2.min.css" type="text/css" rel="stylesheet" />
     <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/dist/js/i18n/es.js"></script> 
@@ -26,17 +37,13 @@ function denuncias_list() {
         </div>
         <hr>
         <div class="row">
-               <!-- <div class="input-field col s6">  
+            
                  
-                  <i class="material-icons">search</i>
-                  <input id="buscar_denuncia2" name="buscar_denuncia2" value="<?php echo $buscar_denuncia2; ?>" type="text"  placeholder="Escribe para buscar...">
-                </div>--> 
-                <div class="input-field col s8"> 
                    <h6>Buscar</h6>
-                      <select id="buscar" name="buscar" class="error browser-default js-example-basic-single" data-error=".errorTxt15">
+                      <select id="buscar" name="buscar" class="error browser-default js-example-basic-single" data-error=".errorTxt15"  style="width:400px;border:1px solid #04467E">
                          <option value="" disabled selected>Seleccione una nota de pedido</option>
                       </select>
-                </div>      
+                    
         </div>        
         <?php
             $args = array(
@@ -79,82 +86,150 @@ function denuncias_list() {
       </div>       
      </div>   
     </div>
-    <div id="cuadro2" class="wrap">
-        <h2>cuadro2</h2>
-        <button type='button' class="btn-floating btn-large waves-effect waves-light blue" onclick="volver()"><i class="material-icons">reply</i></button>
+    <div id="cuadro2" class="col-sm-12 col-md-12 col-lg-12 ocultar">
+      <div class="row">
+        <div class="col s12 m12 l12">
+          <div class="card-panel">  
+               
+                <div class="row">
+                  <button type='button' class="btn-floating btn waves-effect waves-light blue" onclick="volver()"><i class="material-icons">reply</i></button>
+                  <hr>
+                  <h6>Denuncia:</h6>
+                  <h6>Fecha:</h6>
+                  <h6>Hora:</h6>
+                  <h6>Usuario de recepcion:</h6>
+                  <br>
+                  <hr>
+                </div>
+                
+                    
+                            <div class="row">
+                                            <div class="col s4">
+                                                <div class="center promo promo-example">
+                                                    <i class="mdi-action-perm-contact-cal"></i>
+                                                    <p class="flow-text">Denunciado</p>
+                                                    <p class="light center">Nombre:</p>
+                                                    <p class="light center">Nombre:</p>
+                                                    <p class="light center">Nombre:</p>
+                                                </div>
+                                            </div>
+                                            <div class="col s4">
+                                                <div class="center promo promo-example">
+                                                    <i class="mdi-social-group"></i>
+                                                    <p class="flow-text">Denunciante</p>
+                                                    <p class="light center">Nombre:</p>
+                                                </div>
+                                            </div>
+                                            <div class="col s4">
+                                                <div class="center promo promo-example">
+                                                    <i class="mdi-action-description"></i>
+                                                    <p class="flow-text">Detalle de la denuncia</p>
+                                                    <p class="light center">We have provided detailed  as well as specific code examples to help new users get started.</p>
+                                                </div>
+                                            </div>
+                            </div>
+                            <hr>
+                            <h5>Galeria multimedia de la denuncia</h5>
+                        <div class="row">    
+                          <div class="section">  
+                            <div class="masonry-gallery-wrapper">                
+                                <div class="popup-gallery">
+                                        <div class="gallary-sizer"></div>
+                                        <div class="gallary-item"><a href="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/photo_2021-11-11_15-53-11.jpg" title="The Cleaner"><img src="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/photo_2021-11-11_15-53-11.jpg"></a></div>
+                                        <div class="gallary-item"><a href="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/caritas.png" title="Winter Dance"><img src="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/caritas.png"></a></div>
+                                        <div class="gallary-item"><a href="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/pompeya.png" title="Winter Dance"><img src="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/pompeya.png"></a></div>
+                                        
+                                </div>
+                            </div>
+                          </div>
+                        </div>  
+          </div> 
+        </div>
+      </div>        
+       
+        
     </div>    
+       <!-- jQuery Library -->
+       
         <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/icon.css" rel="stylesheet">
         <!--<script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/materialize.min.js"></script>-->
+        
         <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/materialize.min.js"></script>
+         <!--prism -->
+         <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/prism/prism.js"></script>
         <!--scrollbar-->
         <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <!-- chartist -->
+        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/chartist-js/chartist.min.js"></script>   
+        <!--sweetalert -->
+        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/sweetalert/sweetalert.min.js"></script>   
+        <!-- masonry -->
+        <script src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/masonry.pkgd.min.js"></script>
+        <!-- imagesloaded -->
+        <script src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/imagesloaded.pkgd.min.js"></script>    
+        <!-- magnific-popup -->
+        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>  
+        <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins.min.js"></script>
+        <!--custom-script.js - Add your own theme custom JS-->
+        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/custom-script.js"></script>
+        <script type="text/javascript">
+                /*
+                * Masonry container for Gallery page
+                */
+                var $containerGallery = $(".masonry-gallery-wrapper");
+                $containerGallery.imagesLoaded(function() {
+                    $containerGallery.masonry({
+                        itemSelector: '.gallary-item img',
+                    columnWidth: '.gallary-sizer',
+                    isFitWidth: true
+                    });
+                });
+
+                //popup-gallery
+                $('.popup-gallery').magnificPopup({
+                    delegate: 'a',
+                    type: 'image',
+                    closeOnContentClick: true,    
+                    fixedContentPos: true,
+                    tLoading: 'Loading image #%curr%...',
+                    mainClass: 'mfp-img-mobile mfp-no-margins mfp-with-zoom',
+                    gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+                    },
+                    image: {
+                    verticalFit: true,
+                    tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+                    titleSrc: function(item) {
+                        return item.el.attr('title') + '<small>by Marsel Van Oosten</small>';
+                    },
+                    zoom: {
+                    enabled: true,
+                    duration: 300 // don't foget to change the duration also in CSS
+                    }
+                    }
+                });
+        </script>
         <script>		
            
             jQuery(document).ready(function($){
-                // now you can use jQuery code here with $ shortcut formatting
-                // this will execute after the document is fully loaded
-                // anything that interacts with your html should go here
+           
                 $(".js-example-basic-single").select2();
                 $("#cuadro2").slideUp("slow");
                 $("#cuadro1").slideDown("slow");
                 $('#buscar').change(function(){
                     var sele = $("#buscar option:selected").text();
-                    //alert(sele);
+                
                     var indice = sele.split('-');
                     var extraida = indice[0];
                     buscar_selecionado(extraida);
-                   // alert(extraida);
+                  
                 });        
-                // searchs products --------------------------------------------------------------
-                        $("#buscar_denuncia2").on('keyup', function (e) {
-                            e.preventDefault();
-                            
-                            if (e.key === 'Enter' || e.keyCode === 13) {
-                               
-                                $.ajax({
-                                    url: "<?php echo WP_PLUGIN_URL; ?>/crud/controller/search.php",
-                                    dataType: "json",
-                                    data: { "get_denuncia": $("#buscar_denuncia2").val() },
-                                    success: function (response) {
-                                        console.log(response);
-                                        $('#dtdenuncias tbody').remove();
-                                        if (response.length == 0) {
-                                           
-                                             alert("sin resultados");
-                                        } else {
-                                               // for(var i=0; i< response.length; i++){
-                                               // }	
-
-                                               var $dtdenuncias = $('#dtdenuncias');
-                                              
-                                                $.each(response,function(index,respuesta){      
-                                                    $dtdenuncias.append('<tr><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciado +'</td><td>'+ ingreso2.comdpitot +'</td><td><button id="ver_denuncia" type="button" class="denunciaver"><i class="mdi-content-add"></i></button></td><td><button id="eliminar_denuncia" type="button" class="denunciaeliminar"><i class="mdi-content-add"></i></button></td><td><button id="imprimir_denuncia" type="button" class="denunciaimprimir"><i class="mdi-content-add"></i></button></td><tr>');
-                                                });     
-                                           
-                                        }		
-                                    }
-                                });
-                                    
-
-                                    
-                                
-                            }
-                        });
                 listar_denunciados();          
             }); 
-    
-  
-           function vercuadro(){  
-                
-                //$("#cuadro1").slideUp("slow");
-                //$("#cuadro2").slideUp("slow");
-                jQuery("#cuadro1").removeClass('slided').slideUp('fast');
-                jQuery("#cuadro2").removeClass('slided').slideDown('fast'); 
-            }
             function volver(){  
-                
-                //$("#cuadro1").slideUp("slow");
-                //$("#cuadro2").slideUp("slow");
                 jQuery("#cuadro2").removeClass('slided').slideUp('fast');
                 jQuery("#cuadro1").removeClass('slided').slideDown('fast'); 
             }
@@ -162,13 +237,64 @@ function denuncias_list() {
                 window.open('<?php echo WP_PLUGIN_URL; ?>'+'/crud/views/imprimir_denuncia.php', '_blank', 'location=yes,height=600,width=400,scrollbars=yes,status=yes');
                
             }
+            function verdenunciaBoton(){  
+                
+                jQuery("#cuadro1").removeClass('slided').slideUp('fast');
+                jQuery("#cuadro2").removeClass('slided').slideDown('fast'); 
+              
+            }
+            function eliminardenunciaBoton(){  
+                
+                swal({
+                        title: "Esta seguro de eliminar esta denuncia?",
+
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: '#DD6B55',
+                        confirmButtonText: 'SI',
+                        cancelButtonText: "NO",
+                        closeOnConfirm: false,
+                        closeOnCancel: true
+                      },
+                            function(isConfirm)
+
+                           {
+
+                              if (isConfirm)
+                              {  
+                                  
+            
+                                   swal({
+                                   title: "Eliminado",
+                                   text: "La denuncia fue eliminada correctamente",
+                                   type: "success",
+                                   timer: 2000,
+                                   showConfirmButton: false
+                                   });
+                                   //$(".lean-overlay").remove();
+                                    var idempleado = $("#idempleado").val();
+                                    //var opcion = $("#opcion").val();
+                                    var opcion = "eliminar";
+                                    $.ajax({
+                                            method:"POST",
+                                            url: "model/empleadoModel.php",
+                                            data: {"idempleado": idempleado, "opcion": opcion}
+                                    }).done( function( info ){
+                                            //var json_info = JSON.parse( info );
+                                            //mostrar_mensaje( json_info );
+                                            Mensajes(info);
+                                    });
+
+                              } 
+                            });
+              
+            }
             var listar_denunciados = function(){
                 
                     $.ajax({
                               url: "<?php echo WP_PLUGIN_URL; ?>/crud/controller/buscar_denunciados.php",
                               type:'post',
                               dataType:'json'
-                              //data: { "get_buscar": $("#buscar").val() },
                         }).done( function( denunciados ){
                             var $select = $('#buscar');
                             $select.empty();
@@ -190,15 +316,12 @@ function denuncias_list() {
                                         $('#dtdenuncias tbody').remove();
                                         if (response.length == 0) {
                                            
-                                             alert("sin resultados");
+                                             //alert("sin resultados");
+                                             swal("El trabajador seleccionado no tiene denuncias");
                                         } else {
-                                               // for(var i=0; i< response.length; i++){
-                                               // }	
-
                                                var $dtdenuncias = $('#dtdenuncias');
                                               
                                                 $.each(response,function(index,respuesta){      
-                                                  //  $dtdenuncias.append('<tr><td>'+ respuesta.id +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciante +'</td><td>'+ respuesta.detalle +'</td><td>'+ respuesta.fecha +'</td><td>'+ respuesta.estado +'</td><td><button id="aranverAPROBAR" type="button" class="btn-floating btn waves-effect waves-light teal btn-clip-preview" onclick="imprimir_denunciaboton();"><i class="mdi-action-print"></i></button></td><tr>');
                                                     $dtdenuncias.append('<tr><td>'+ respuesta.id +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciante +'</td><td>'+ respuesta.fecha +'</td><td>'+ respuesta.estado +'</td><td><button id="ver_denuncia" type="button" class="btn-floating btn waves-effect waves-light brown btn-clip-preview" onclick="verdenunciaBoton();"><i class="mdi-action-find-in-page"></i></button></td><td><button id="eliminar_denuncia" type="button" class="btn-floating btn waves-effect waves-light black btn-clip-preview" onclick="eliminardenunciaBoton();"><i class="mdi-content-clear"></i></button></td><td><button id="imprimir_denuncia" type="button" class="btn-floating btn waves-effect waves-light green btn-clip-preview" onclick="imprimirdenunciaBoton();"><i class="mdi-action-print"></i></button></td><tr>');
                                                 });     
                                            

@@ -11,8 +11,8 @@ function denuncias_create() {
                 'lw_denunciante' => $_POST['nombre_denunciante'] ,
                 'lw_detalle' => $_POST['detalle_denuncia'] , 
                 'lw_estado' =>'Recepcionado',
-                'lw_image1' =>$_POST['lw_image1'],
-              
+                'lw_imagenes' =>$_POST['imagenes_id'],
+                'lw_imagenes_cantidad' =>$_POST['cantidad_multimedia'],
             )
 
         );
@@ -53,16 +53,18 @@ function denuncias_create() {
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/jquery.richtext.js"></script> 
 
+       
         <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
         <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/style.min.css" type="text/css" rel="stylesheet" media="screen,projection">
         <!-- Custome CSS-->    
         <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/custom/custom.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-        <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/prism/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
+       
 
-        <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/estilos.css" type="text/css" rel="stylesheet" media="screen,projection">
-        <!--<link rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/font-awesome.min.css">--> 
+        <!--<link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/estilos.css" type="text/css" rel="stylesheet" media="screen,projection">
+        <link rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/css/font-awesome.min.css">--> 
         <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
-
+        <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/magnific-popup/magnific-popup.css" type="text/css" rel="stylesheet" media="screen,projection">  
 
        
         <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/dist/js/select2.full.js"></script>
@@ -83,6 +85,7 @@ function denuncias_create() {
         <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
             <input type="hidden" id="nombre_denunciado" name="nombre_denunciado" value="">
             <input type="hidden" id="nombre_denunciante" name="nombre_denunciante" value="">
+            <input type="hidden" id="imagenes_id" name="imagenes_id" value="">
             <!-- <p>Three capital letters for the ID</p> -->
             <table class='wp-list-table widefat fixed'>
               
@@ -182,11 +185,11 @@ function denuncias_create() {
                     </div>
                     <div class="file-field input-field col s2">
                        <h6>Cantidad de archivos de multimedia</h6>
-                       <input class='' type='number' name='cantidad_multimedia' value='' />
+                       <input class='' type='number' name='cantidad_multimedia' id='cantidad_multimedia' value='' />
                     </div>
                     <div class="file-field input-field col s6">
                        <h6>Ver galeria multimedia</h6>
-                       <button type='button' class="btn-floating btn waves-effect waves-light cyan" onclick=""><i class="material-icons">reply</i></button>
+                       <button type='button' class="btn-floating btn waves-effect waves-light teal darken-4" onclick="verultimogaleria()"><i class='mdi-action-visibility'></i></button>
                  
                     </div>
              </div>        
@@ -209,6 +212,7 @@ function denuncias_create() {
         
         <hr>
         <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+            
             <div class="row">
                     <div class="input-field col s12">
                       <button type='submit' name="insert_trabajador" class="btn-floating btn waves-effect waves-light green"><i class="material-icons">save</i></button>
@@ -280,27 +284,87 @@ function denuncias_create() {
     </div>
    </div>
   </div>  
- </div>   
+ </div><!--final cuadro2-->
+ <div id="cuadro3" class="col-sm-12 col-md-12 col-lg-12 ocultar">
+        <h5>Galeria multimedia de la denuncia</h5>
+        <hr>
+           <div class="row">
+                    <div class="input-field col s12">
+                      <button type='button' class="btn-floating btn waves-effect waves-light blue" onclick="volver_vergaleria()"><i class="material-icons">reply</i></button>                 
+                    </div>
+            </div>
+        <hr>    
+        <div class="row">    
+            <div class="section">  
+              <div class="masonry-gallery-wrapper">                
+                <div class="popup-gallery verfotosinsertadas">
+                <div class="gallary-sizer"></div>
+                                          
+                </div>
+              </div>
+            </div>
+        </div> 
+       
+ </div><!--final cuadro3-->
 
         <link href="<?php echo WP_PLUGIN_URL; ?>/crud/resources/icon.css" rel="stylesheet">
         <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/materialize.min.js"></script>
-
-        <!--angularjs-->
-        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/angular.min.js"></script>
-        
-        
         <!--prism -->
-        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/prism/prism.js"></script>
+        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/prism/prism.js"></script>                              
+        <!--angularjs
+        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/angular.min.js"></script>-->
         <!--scrollbar-->
         <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-        <!-- chartist -->
-        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/chartist-js/chartist.min.js"></script>   
-        <!-- dropify -->
-        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/dropify/js/dropify.min.js"></script>
+       
+        <!-- masonry -->
+        <script src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/masonry.pkgd.min.js"></script>
+        <!-- imagesloaded -->
+        <script src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/imagesloaded.pkgd.min.js"></script>    
+        <!-- magnific-popup -->
+        <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>  
         <!--plugins.js - Some Specific JS codes for Plugin Settings-->
         <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/plugins.min.js"></script>
         <!--custom-script.js - Add your own theme custom JS-->
         <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/crud/resources/js/custom-script.js"></script>
+        <script type="text/javascript">
+                /*
+                * Masonry container for Gallery page
+                */
+                var $containerGallery = $(".masonry-gallery-wrapper");
+                $containerGallery.imagesLoaded(function() {
+                    $containerGallery.masonry({
+                        itemSelector: '.gallary-item img',
+                    columnWidth: '.gallary-sizer',
+                    isFitWidth: true
+                    });
+                });
+
+                //popup-gallery
+                $('.popup-gallery').magnificPopup({
+                    delegate: 'a',
+                    type: 'image',
+                    closeOnContentClick: true,    
+                    fixedContentPos: true,
+                    tLoading: 'Loading image #%curr%...',
+                    mainClass: 'mfp-img-mobile mfp-no-margins mfp-with-zoom',
+                    gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+                    },
+                    image: {
+                    verticalFit: true,
+                    tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+                    titleSrc: function(item) {
+                        return item.el.attr('title') + '<small>by Marsel Van Oosten</small>';
+                    },
+                    zoom: {
+                    enabled: true,
+                    duration: 300 // don't foget to change the duration also in CSS
+                    }
+                    }
+                });
+        </script>
         <script>  
             function open_modal_galery() {
             window.open('upload.php', '_blank', 'location=yes,height=600,width=400,scrollbars=yes,status=yes');
@@ -314,6 +378,7 @@ function denuncias_create() {
         <script>		
            
            jQuery(document).ready(function($){
+               $("#cuadro3").slideUp("slow");
                $("#cuadro2").slideUp("slow");
                $("#cuadro1").slideDown("slow");
                $(".js-example-basic-single").select2();
@@ -353,7 +418,7 @@ function denuncias_create() {
                               });
               });    
             $('#denunciante').change(function(){
-
+             
              var nombre_combo=$('#denunciante option:selected').text(); 
              $("#nombre_denunciante").val( nombre_combo );
 
@@ -382,10 +447,10 @@ function denuncias_create() {
                         }		
                     }
               });
-});     
+            });     
 
                  
-            }); 
+       }); 
             
             function nuevo_trabajador(){  
                 
@@ -393,12 +458,62 @@ function denuncias_create() {
                 //$("#cuadro2").slideUp("slow");
                 jQuery("#cuadro1").removeClass('slided').slideUp('fast');
                 jQuery("#cuadro2").removeClass('slided').slideDown('fast'); 
+                jQuery("#cuadro3").removeClass('slided').slideUp('fast'); 
             }
             function volver(){  
                 
                 jQuery("#cuadro2").removeClass('slided').slideUp('fast');
+                jQuery("#cuadro3").removeClass('slided').slideUp('fast'); 
                 jQuery("#cuadro1").removeClass('slided').slideDown('fast'); 
               // alert('<?php echo $_SERVER['REQUEST_URI']; ?>');
+            }
+            function volver_vergaleria(){  
+             
+              //alert($("#imagenes_id").val());
+              var cantidad=document.getElementById('cantidad_multimedia').value;
+              for (var i = 0; i < cantidad; i++) {
+                
+                 $("#xyz"+i).remove(); 
+               
+              }     
+               
+               // $("#xyz1").remove();  
+                jQuery("#cuadro2").removeClass('slided').slideUp('fast');
+                jQuery("#cuadro3").removeClass('slided').slideUp('fast'); 
+                jQuery("#cuadro1").removeClass('slided').slideDown('fast'); 
+
+              // alert('<?php echo $_SERVER['REQUEST_URI']; ?>');
+            }
+            function verultimogaleria(){ 
+                            var cantidad=document.getElementById('cantidad_multimedia').value;
+                            $.ajax({
+                                    url: "<?php echo WP_PLUGIN_URL; ?>/crud/controller/mostrar_ultimas_multimedias.php",
+                                    dataType: "json",
+                                    data: { "cantidad_multimedia": cantidad},
+                                    success: function (response) {
+                                        console.log(response);
+                                        
+                                        if (response.length == 0) {
+                                           
+                                             alert("sin resultados");
+                                        } else {
+                                                  $("#imagenes_id").val('');
+                                                  var conca='';
+                                                  for (var i = 0; i < response.length; i++) {
+                                                        var a = $("<div id='xyz"+i+"' class='gallary-item'></div>");
+                                                        conca= conca + response[i].id +' ';
+                                                        a.append("<a href='"+response[i].nombre+"'><img width='80' height='80' src='"+response[i].nombre+"'></a>");
+                                                        $("div .verfotosinsertadas").append(a);
+                                                  }
+                                                  $("#imagenes_id").val(conca);
+                                           
+                                        }		
+                                    }
+                              });
+                            jQuery("#cuadro1").removeClass('slided').slideUp('fast');
+                            jQuery("#cuadro3").removeClass('slided').slideDown('fast'); 
+                            jQuery("#cuadro2").removeClass('slided').slideUp('fast'); 
+
             }
 
         </script>              

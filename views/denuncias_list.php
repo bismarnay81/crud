@@ -45,13 +45,7 @@ function denuncias_list() {
                       </select>
                     
         </div>        
-        <?php
-            $args = array(
-                'post_type'        => 'pos_denuncias',
-                
-            );
-            $rows = get_posts( $args );
-        ?>
+       
         <table id="dtdenuncias" name="dtdenuncias" class='wp-list-table widefat fixed striped posts'>
           <thead> 
             <tr>
@@ -67,19 +61,7 @@ function denuncias_list() {
             </tr>
           </thead>  
           <tbody>
-            <?php for($i=0; $i < count($rows); $i++){  ?>
-                <tr>
-                    <td class="manage-column ss-list-width"><?php echo $rows[$i]->ID; ?></td>
-                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_denunciado', true ); ?></td>
-                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_denunciante', true ); ?></td>
-                   
-                    <td class="manage-column ss-list-width"><?php echo $rows[$i]->post_date; ?></td>
-                    <td class="manage-column ss-list-width"><?php echo get_post_meta( $rows[$i]->ID, 'lw_estado', true ); ?></td>
-                    <td class="manage-column ss-list-width"><button id="" type="button" class="btn-floating btn waves-effect waves-light brown btn-clip-preview" onclick="verdenunciaBoton();"><i class="mdi-action-find-in-page"></i></button></td>
-                    <td class="manage-column ss-list-width"><button id="" type="button" class="btn-floating btn waves-effect waves-light black btn-clip-preview" onclick="eliminardenunciaBoton();"><i class="mdi-content-clear"></i></button></td>
-                    <td class="manage-column ss-list-width"><button id="" type="button" class="btn-floating btn waves-effect waves-light teal btn-clip-preview" onclick="imprimirdenunciaBoton();"><i class="mdi-action-print"></i></button></td>
-                </tr>
-            <?php } ?> 
+           
           </tbody>   
         </table>
        </div> 
@@ -90,13 +72,14 @@ function denuncias_list() {
       <div class="row">
         <div class="col s12 m12 l12">
           <div class="card-panel">  
-               
+                <input type="text" id="denuncia_codigo" name="denuncia_codigo" value="">
+                <input type="text" id="denuncia_codigo2" name="denuncia_codigo2" value="">
                 <div class="row">
-                  <button type='button' class="btn-floating btn waves-effect waves-light blue" onclick="volver()"><i class="material-icons">reply</i></button>
+                  <button type='button' class="btn-floating btn waves-effect waves-light blue" onclick="volver_principal()"><i class="material-icons">reply</i></button>
                   <hr>
-                  <h6>Denuncia:</h6>
-                  <h6>Fecha:</h6>
-                  <h6>Hora:</h6>
+                  <h6 id="datos_denuncia">Denuncia:</h6>
+                  <h6 id="datos_fecha">Fecha:</h6>
+                  <h6 id="datos_hora">Hora:</h6>
                   <h6>Usuario de recepcion:</h6>
                   <br>
                   <hr>
@@ -108,16 +91,15 @@ function denuncias_list() {
                                                 <div class="center promo promo-example">
                                                     <i class="mdi-action-perm-contact-cal"></i>
                                                     <p class="flow-text">Denunciado</p>
-                                                    <p class="light center">Nombre:</p>
-                                                    <p class="light center">Nombre:</p>
-                                                    <p class="light center">Nombre:</p>
+                                                    <p id="datos_denunciado" class="light center">Nombre:</p>
+                                                   
                                                 </div>
                                             </div>
                                             <div class="col s4">
                                                 <div class="center promo promo-example">
                                                     <i class="mdi-social-group"></i>
                                                     <p class="flow-text">Denunciante</p>
-                                                    <p class="light center">Nombre:</p>
+                                                    <p id="datos_denunciante" class="light center">Nombre:</p>
                                                 </div>
                                             </div>
                                             <div class="col s4">
@@ -129,21 +111,34 @@ function denuncias_list() {
                                             </div>
                             </div>
                             <hr>
+            </div>                
                             <h5>Galeria multimedia de la denuncia</h5>
-                        <div class="row">    
-                          <div class="section">  
-                            <div class="masonry-gallery-wrapper">                
-                                <div class="popup-gallery">
-                                        <div class="gallary-sizer"></div>
-                                        <div class="gallary-item"><a href="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/photo_2021-11-11_15-53-11.jpg" title="The Cleaner"><img src="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/photo_2021-11-11_15-53-11.jpg"></a></div>
-                                        <div class="gallary-item"><a href="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/caritas.png" title="Winter Dance"><img src="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/caritas.png"></a></div>
-                                        <div class="gallary-item"><a href="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/pompeya.png" title="Winter Dance"><img src="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/pompeya.png"></a></div>
-                                        
-                                </div>
-                            </div>
-                          </div>
-                        </div>  
-          </div> 
+                               
+                                <div class="row">    
+                                    <div class="section">  
+                                        <div class="masonry-gallery-wrapper">                
+                                            <div class="popup-gallery verfotosinsertadas">
+                                                    <div class="gallary-sizer"></div>
+                                           
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                               <!-- <div class="col s12 m8 l9">
+                                    <div class="card-panel">
+                                        <video width="100%" controls="">
+                                           <source src="http://localhost:8085/paginaprueba/wp-content/uploads/2021/11/Video_1633179217.mp4" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+                                           
+                                        </video>
+                                    </div>
+                                </div>-->
+          
         </div>
       </div>        
        
@@ -227,18 +222,46 @@ function denuncias_list() {
                     buscar_selecionado(extraida);
                   
                 });        
-                listar_denunciados();          
+                listar_denunciados();
+                listar_denuncias();          
             }); 
             function volver(){  
                 jQuery("#cuadro2").removeClass('slided').slideUp('fast');
                 jQuery("#cuadro1").removeClass('slided').slideDown('fast'); 
             }
+            function volver_principal(){  
+             
+             
+                var cantidad=50;//document.getElementById('denuncia_codigo2').value;
+                //alert(cantidad);
+                for (var i = 0; i < cantidad; i++) {
+                
+                    $("#xyz"+i).remove(); 
+                
+                }
+            //   $("#xyz0").remove();
+            //   $("#xyz1").remove();  
+            //   $("#xyz2").remove();  
+            //   $("#xyz3").remove();    
+            //   $("#xyz4").remove();  
+            //   $("#xyz5").remove();
+            //   $("#xyz6").remove();
+            //   $("#xyz7").remove();
+            //   $("#xyz8").remove();  
+                listar_denuncias();  
+               jQuery("#cuadro2").removeClass('slided').slideUp('fast');
+               jQuery("#cuadro1").removeClass('slided').slideDown('fast'); 
+               //header('Location: ' . admin_url('admin.php?page=central-riesgo'), true);
+               //die(); 
+             // alert('<?php echo $_SERVER['REQUEST_URI']; ?>');
+           }
             function imprimir_denunciaboton(){  
                 window.open('<?php echo WP_PLUGIN_URL; ?>'+'/crud/views/imprimir_denuncia.php', '_blank', 'location=yes,height=600,width=400,scrollbars=yes,status=yes');
                
             }
-            function verdenunciaBoton(){  
-                
+            function verdenunciaBoton2222(){
+
+               
                 jQuery("#cuadro1").removeClass('slided').slideUp('fast');
                 jQuery("#cuadro2").removeClass('slided').slideDown('fast'); 
               
@@ -306,6 +329,30 @@ function denuncias_list() {
                        });
 
             }
+            var listar_denuncias = function(){
+                var cantidades=5;
+                $.ajax({
+                          url: "<?php echo WP_PLUGIN_URL; ?>/crud/controller/listar_denuncias.php",
+                          dataType:'json',
+                          data: { "get_cantidades": cantidades },
+                          success: function (response) {
+                                       
+                                        $('#dtdenuncias tbody').remove();
+                                        if (response.length == 0) {
+                                           
+                                             alert("sin resultados");
+                                             //swal("El trabajador seleccionado no tiene denuncias");
+                                        } else {
+                                               var $dtdenuncias = $('#dtdenuncias');
+                                              
+                                                $.each(response,function(index,respuesta){      
+                                                    $dtdenuncias.append('<tr><td>'+ respuesta.id +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciante +'</td><td>'+ respuesta.fecha +'</td><td>'+ respuesta.estado +'</td><td><button id="ver_denuncia" type="button" class="btn-floating btn waves-effect waves-light brown btn-clip-preview verdenunciaBoton"><i class="mdi-action-find-in-page"></i></button></td><td><button id="eliminar_denuncia" type="button" class="btn-floating btn waves-effect waves-light black btn-clip-preview" onclick="eliminardenunciaBoton();"><i class="mdi-content-clear"></i></button></td><td><button id="imprimir_denuncia" type="button" class="btn-floating btn waves-effect waves-light green btn-clip-preview" onclick="imprimirdenunciaBoton();"><i class="mdi-action-print"></i></button></td><tr>');
+                                                });     
+                                           
+                                        }		
+                                    }  
+                });                        
+            }
             var buscar_selecionado = function(recibido){
                         $.ajax({
                                     url: "<?php echo WP_PLUGIN_URL; ?>/crud/controller/search.php",
@@ -330,6 +377,85 @@ function denuncias_list() {
                         });
 
             }    
-        </script>    
+        </script> 
+         <script type="text/javascript">
+   
+                $(document).on("click", ".verdenunciaBoton", function(event){
+
+                        var codigo_id=$(this).parents("tr").find("td").eq(0).html();
+                       // document.getElementById("denuncia_codigo2").value = codigo_id;
+                        $("#denuncia_codigo").val(codigo_id);
+                        var denuncia_denunciado=$(this).parents("tr").find("td").eq(1).html();
+                        var denuncia_denunciante=$(this).parents("tr").find("td").eq(2).html();
+                        var denuncia_fechahora=$(this).parents("tr").find("td").eq(3).html();
+                        
+                        var denuncia_fecha = denuncia_fechahora.split(" ")[0];
+                        var denuncia_hora = denuncia_fechahora.split(" ")[1];
+                        
+                        document.getElementById('datos_denunciado').innerHTML='Nombres y apellidos : '+denuncia_denunciado;
+                        document.getElementById('datos_denunciante').innerHTML='Nombres y apellidos : '+denuncia_denunciante;
+                        document.getElementById('datos_denuncia').innerHTML='Denuncia : '+codigo_id;
+                        document.getElementById('datos_fecha').innerHTML='Fecha : '+denuncia_fecha;
+                        document.getElementById('datos_hora').innerHTML='Hora : '+denuncia_hora;
+                        $.ajax({
+                                    url: "<?php echo WP_PLUGIN_URL; ?>/crud/controller/buscar_denuncia.php",
+                                    dataType: "json",
+                                    data: { "codigo_id": codigo_id },
+                                    success: function (response) {
+                                        console.log(response);
+                                        $('#dtdenuncias tbody').remove();
+                                        if (response.length == 0) {
+                                           
+                                             alert("sin resultados");
+                                             //swal("El trabajador seleccionado no tiene denuncias");
+                                        } else {
+                                               //var $dtdenuncias = $('#denuncia_codigo2');
+                                                var resultados='';
+                                                var resultados_cantidad='';
+                                                $.each(response,function(index,respuesta){      
+                                                    //$dtdenuncias.append('<tr><td>'+ respuesta.id +'</td><td>'+ respuesta.denunciado +'</td><td>'+ respuesta.denunciante +'</td><td>'+ respuesta.fecha +'</td><td>'+ respuesta.estado +'</td><td><button id="ver_denuncia" type="button" class="btn-floating btn waves-effect waves-light brown btn-clip-preview" onclick="verdenunciaBoton();"><i class="mdi-action-find-in-page"></i></button></td><td><button id="eliminar_denuncia" type="button" class="btn-floating btn waves-effect waves-light black btn-clip-preview" onclick="eliminardenunciaBoton();"><i class="mdi-content-clear"></i></button></td><td><button id="imprimir_denuncia" type="button" class="btn-floating btn waves-effect waves-light green btn-clip-preview" onclick="imprimirdenunciaBoton();"><i class="mdi-action-print"></i></button></td><tr>');
+                                                    $("#denuncia_codigo2").val(respuesta.imagenes_cantidad);
+                                                    resultados=respuesta.id_imagenes;
+                                                    resultados_cantidad=respuesta.imagenes_cantidad;
+                                                    //alert(respuesta.id_imagenes);
+                                                });     
+                                                //var res = resultados.split(" ");
+                                                for (var i = 0; i < resultados_cantidad; i++) {
+                                                    codigo_id= resultados.split(" ")[i];
+                                                    $.ajax({
+                                                                url: "<?php echo WP_PLUGIN_URL; ?>/crud/controller/mostrar_seleccion_multimedias.php",
+                                                                dataType: "json",
+                                                                data: { "codigo_id": codigo_id},
+                                                                success: function (response) {
+                                                                    console.log(response);
+                                                                    
+                                                                    if (response.length == 0) {
+                                                                    
+                                                                        alert("sin resultados");
+                                                                    } else {
+                                                                            
+                                                                            
+                                                                            for (var j = 0; j < response.length; j++) {
+                                                                                    var a = $("<div id='xyz"+i+"' class='gallary-item'></div>");
+                                                                                    a.append("<a href='"+response[j].nombre+"'><img width='80' height='80' src='"+response[j].nombre+"'></a>");
+                                                                                    $("div .verfotosinsertadas").append(a);
+                                                                            }
+                                                                            
+                                                                    
+                                                                    }		
+                                                                }
+                                                        });
+
+                                                }      
+                                        }		
+                                    }
+                        });
+
+                        jQuery("#cuadro1").removeClass('slided').slideUp('fast');
+                        jQuery("#cuadro2").removeClass('slided').slideDown('fast');  
+                    });
+
+        </script> 
+           
     <?php
 }
